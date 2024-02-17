@@ -1,0 +1,35 @@
+from models import *
+ad = GRAM("testData/vstupy.txt","testData/vystupy.txt",vrs=True, p=0.1)#,nonDiscretionaryInputs=np.array([0]))
+ad.solve()
+print(ad)
+#print(ad.solutions)
+#ad.plot_projections(file='output')
+# ad.plot_DMU_attributes(file_path='',which= 7 )
+#ad.writeSolutionsToFile('o.txt')
+
+# ad = AdditiveModel("testData/noNumberX.txt","testData/noNumberY.txt",vrs=True)#,nonDiscretionaryInputs=np.array([0]))
+# ad.solve()
+# print(ad)
+# #print(ad.solutions)
+# ad.plot_projections(file='output')
+# # ad.plot_DMU_attributes(file_path='',which= 7 )
+# #ad.writeSolutionsToFile('o.txt')
+
+
+# ad = AdditiveModel("testData/simpleX.txt","testData/simpleY.txt",vrs=False)
+# ad.solve()
+# print(ad)
+# ad.plot_projections()
+# ad.plot_effectivity()
+
+# ad = AdditiveModel("testData/simpleX.txt","testData/simpleY.txt",vrs=True)
+# ad.solve()
+# print(ad)
+# ad.plot_projections()
+# ad.plot_effectivity()
+
+# ad = AdditiveModel("testData/simpleX.txt","testData/simpleY.txt",vrs=True,nonDiscretionaryInputs=np.array([0]))
+# ad.solve()
+# print(ad)
+# ad.plot_projections()
+# ad.plot_effectivity()

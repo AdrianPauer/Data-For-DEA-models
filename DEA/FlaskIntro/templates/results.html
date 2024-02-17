@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css')}}">
+    <title>DEA</title>
+</head>
+<body>
+    
+
+</body>
+<body>
+    <header> <h1  class= "title">Solver pre neradiálne DEA modely</h1></header>
+    <div id="wrapper">
+    <nav>
+        <a href="{{url_for('home')}}">domov</a>
+    </nav>
+  
+    <div id="content">
+        <h2>Výsledky</h2>
+        <p>Výstupný súbor stiahni
+        <a href="{{ url_for('download', filename='outputFile.txt') }}">tu</a>
+        </p>
+
+        <h2>Tabuľka efektivity</h2>
+        <table>
+            <tr>
+                {% for col in ['DMU', 'efficiency', 'rank']  %}
+                    <th>{{col}}</th>
+                {% endfor %}
+            </tr>
+            {% for key, value in table.items() %}
+                <tr>
+                <td>{{key}}</td> <td>{{value['solution']}}</td> <td>{{value['rank']}}</td> 
+                </tr>
+            {% endfor %}
+            </table>
+        
+            {% for image in images %}
+                <figure>
+                <figcaption>{{image[1]}}</figcaption>
+                <img src="/static/images/{{image[0]}}" class="image" width="100%" height="90%"/>
+                </figure>
+            {% endfor %}
+            
+            <h2>Zobraz výsledky pre jednotlivé DMU</h2>
+            <form action="{{ url_for('results') }}" method="POST" >
+                <input type="text" id="which_DMU" name="which_DMU" placeholder="1 2 3"><br>
+                <input type="submit" value="zobraz">
+            </form>
+            {% for dmu in dmu_to_show %}
+                <h1> dmu {{dmu}}</h1>    
+                {% for image in ['paratial_efficiencies_', 'reference_set_'] %}
+                <figure>
+                <img src="/static/images/{{image + dmu}}.png" class="image"/>
+                </figure>
+                {% endfor%}
+            {% endfor%}
+    </div>
+    
+    <div id="footer">
+        <p>Adrián Pauer</p>
+    </div>
+    </div>
+    <script src="static/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

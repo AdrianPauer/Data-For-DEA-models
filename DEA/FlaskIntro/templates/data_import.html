@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/main.css')}}">
+    <title>DEA</title>
+</head>
+
+<body>
+  <header> <h1 class= "title">Solver pre neradiálne DEA modely</h1></header>
+  <div id="wrapper">
+  <nav id = "nav">
+      <a href="{{url_for('home')}}">domov</a>
+  </nav>
+
+  <div id="content">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+
+    {% endwith %}
+    <form action="{{ url_for('data_import') }}" method="POST" enctype=multipart/form-data>
+      {% if wad == True %}
+      <h2>Váhy</h2>
+        <small>Zadaj váhy pre vstupy čísla oddelené medzerou.</small><br>
+        <label for="w_i"><strong>váhy(vstupy)</strong></label>
+        <input type="text" id="w_i" name="w_i" ><br>
+        
+        <small>Zadaj váhy pre výstupy ako čísla oddelené medzerou. </small><br>
+        <label for="w_o"><strong>váhy(výstupy)</strong></label>
+        <input type="text" id="w_o" name="w_o"><br>
+      {% endif %}
+      
+      {% if gram == True %}
+      <h2>Parameter p</h2>
+        <small>Zadaj parameter p, ktorý vstupuje do účelovej funkcie modelu GRAM</small><br>
+        <label for="p"><strong>p</strong></label>
+        <input type="text" id="p" name="p" ><br>
+      {% endif %}
+
+      {% if control == True %}
+      <h2>Kontrolované vstupy a výstupy</h2>
+        <small>Zadaj kontrolované vstupy ako čísla oddelené medzerou, kde čísla označujú poradie vstupu začínajúcim nulou.
+           Napr.: 0 1 značí, že prvý a druhý vstup sa v analýze nebudú kontrolovať </small><br>
+        <label for="c_i"><strong>kontrolované vstupy</strong></label>
+        <input type="text" id="c_i" name="c_i" ><br>
+        
+        <small>Zadaj kontrolované výstupy ako čísla oddelené medzerou, kde čísla označujú poradie výstupu začínajúcim nulou.
+          Napr.: 0 1 značí, že prvý a druhý výstup sa v analýze nebudú kontrolovať </small><br>
+        <label for="c_o"><strong>kontrolované výstupy</strong></label>
+        <input type="text" id="c_o" name="c_o"><br>
+      {% endif %}
+      
+      <h2>Vstupy a výstupy</h2>
+        <strong>Matica vstupov:</strong><br>
+        <small> Maticu vstupov zadávajte v tvare číslo medzera číslo. Napr:4 5 6.
+           <b>Stĺpce</b> prislúchajú jednolivým DMU, riadky zodpovedajú postupne prvému až poslednému vstupu </small><br>
+        <textarea type="text" id="input_matrix"  rows="10" cols="30" name="input_mat" placeholder="vstupy" style="height: 167px; width: 421px;"></textarea> <br>
+        
+        <strong>Matica výstupov:</strong><br>
+        <small> Maticu výstupov zadávajte v tvare číslo medzera číslo. Napr:4 5 6.
+           <b>Stĺpce</b> prislúchajú jednolivým DMU, riadky zodpovedajú postupne prvému až poslednému výstupu </small><br>
+        <textarea type="text" id="output_matrix"  rows="10" cols="30" name="output_mat" placeholder="výstupy" style="height: 167px; width: 421px;"></textarea> <br>
+        
+        <h2> Načítavanie zo súboru </h2>
+        <small> Zadávajte súbor <b>.txt</b>, kde stĺpce zodpovedajú jednotlivým DMU a v riadkoch sú hodnoty vstupov.
+           Čísla v riadkoch sú oddelené medzerou a riadky sú ukončené znakom <b>/n</b>
+        </small><br>
+        
+        <div class="button-wrap">
+          <label class = 'button' for="inputs">súbor pre vstupy</label>
+          <input type="file" id="inputs" name="inputsFile" ><br>
+        </div>
+        
+        <small> Zadávajte súbor <b>.txt</b>, kde stĺpce zodpovedajú jednotlivým DMU a v riadkoch sú hodnoty výstupov.
+          Čísla v riadkoch sú oddelené medzerou a riadky sú ukončené znakom <b>/n</b>
+        </small><br>
+
+        <div class="button-wrap"> 
+          <label class = 'button' for="outputs">súbor pre výstupy</label>
+          <input type="file" id="outputs" name="outputsFile"><br>
+        </div>
+
+        <input type="submit" value="vyhodnoť"/>
+    </form>
+  </div>
+  
+  <div id="footer">
+      <p>Adrián Pauer</p>
+  </div>
+  </div>
+  <script src="static/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
